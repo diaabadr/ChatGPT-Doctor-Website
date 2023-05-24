@@ -9,7 +9,8 @@ const chatGetController = async (req, res) => {
       { $project: { lastOne: { $slice: ["$messages", -1] } } },
     ]);
 
-    if (lastMessage[0].lastOne.role === "user") {
+    console.log();
+    if (lastMessage[0].lastOne.role === "user"||(!lastMessage.lastOne)) {
       await storeMessageInDB(
         req.userId,
         `I can assist you as a doctor. Please tell me, what symptoms are you experiencing?`,
