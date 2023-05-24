@@ -5,11 +5,9 @@ let cookieParser = require("cookie-parser");
 let logger = require("morgan");
 const mongoose = require("mongoose");
 let indexRouter = require("./routes/auth");
-let chatRouter= require('./routes/chat')
-require('dotenv').config();
+let chatRouter = require("./routes/chat");
+require("dotenv").config();
 let app = express();
-
-
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -22,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(require("cors")());
 app.use("/auth", indexRouter);
-app.use('/chat',chatRouter)
+app.use("/chat", chatRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -39,14 +37,8 @@ app.use(function (err, req, res, next) {
   res.send("error");
 });
 
-
-
-mongoose.connect(
-  process.env.DB_URL,
-  { useNewUrlParser: true },
-  (error) => {
-    if (error) console.log(error);
-    else console.log("Database Connected Successfully");
-  }
-);
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, (error) => {
+  if (error) console.log(error);
+  else console.log("Database Connected Successfully");
+});
 module.exports = app;

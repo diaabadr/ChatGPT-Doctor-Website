@@ -54,7 +54,7 @@ const confirmation = async function (req, res, next) {
     { _id: req.params.id },
     { $set: { isConfirmed: true } },
     (err, result) => {
-      if (err) res.send("Error Occured");
+      if (err) res.status(404).json({ error: "Wrong Confirmation Link" });
       else res.send("Confirmed Successfully");
     }
   );

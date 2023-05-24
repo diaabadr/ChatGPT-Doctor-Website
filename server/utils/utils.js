@@ -1,7 +1,8 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 const { Configuration, OpenAIApi } = require("openai");
-
+const User = require("../Models/user");
+console.log(User);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -29,7 +30,9 @@ const sendConfirmationMail = async (email, id) => {
 const getEmailDesign = (id) => {
   return `<div style="background-color: #f4f4f4; padding: 20px;"><p style="font-size: 18px; margin-bottom: 20px;">Click the button below to Confirm:</p><a href="${
     process.env.BASE_URL
-  }:${process.env.PORT}/auth/${id.toString()}" style="background-color: #4CAF50; color: white; padding: 12px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Confirm</a></div>`;
+  }:${
+    process.env.PORT
+  }/auth/${id.toString()}" style="background-color: #4CAF50; color: white; padding: 12px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Confirm</a></div>`;
 };
 
 const openai = new OpenAIApi(
@@ -37,5 +40,7 @@ const openai = new OpenAIApi(
     apiKey: process.env.OPENAI_API_KEY,
   })
 );
+
+
 
 module.exports = { sendConfirmationMail, openai };

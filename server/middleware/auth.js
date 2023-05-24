@@ -2,8 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../Models/user");
 
 const requireAuth = function (req, res, next) {
-  const token = req.cookies.jwt;
-
+  const token = req.headers.authorization.split(" ")[1];
   if (token) {
     jwt.verify(token, process.env.SECRET, async (err, decodedToken) => {
       if (err) {
