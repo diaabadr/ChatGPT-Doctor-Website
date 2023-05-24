@@ -123,13 +123,13 @@ const Homepage = () => {
           'Content-Type': 'application/json',
         },
       };
-      // Send a POST request to the API with the prompt in the request body
+
       const response = await axios.post("chat", {
         prompt: _prompt,
         model: modelValue,
       },config);
       if (modelValue === "image") {
-        // Show image for `Create image` model
+
         updateResponse(uniqueId, {
           image: response.data,
         });
@@ -192,8 +192,8 @@ const Homepage = () => {
         window.location.href='/login';
         return;
       }
-      console.log(token);
-        const config = {
+
+      const config = {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -202,8 +202,26 @@ const Homepage = () => {
         console.log(response.data.chat);
         for (const message of response.data.chat)
         {
-          // console.log(message);
-          await addResponse(message.role==="user"?true:false,message.content);
+
+          if(message.role==="user")
+          {
+            addResponse(true,message.content);
+          }
+          else{
+            const uniqueId= addResponse(false);
+            if(message.content.includes("https"))
+            {
+              updateResponse(uniqueId, {
+                image: message.content,
+              });
+            }
+            else{
+              updateResponse(uniqueId, {
+                response: message.content.trim(),
+              });
+            }
+           
+          }
         }
     }
     
