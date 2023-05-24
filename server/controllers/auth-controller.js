@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../Models/user.js");
 const { sendConfirmationMail } = require("../utils/utils");
+const {confirmationPageHtml} = require("../utils/statics");
 const day = 1000 * 24 * 60 * 60;
 const createToken = function (id) {
   return jwt.sign({ id }, process.env.SECRET, { expiresIn: 3 * day });
@@ -55,9 +56,14 @@ const confirmation = async function (req, res, next) {
     { $set: { isConfirmed: true } },
     (err, result) => {
       if (err) res.status(404).json({ error: "Wrong Confirmation Link" });
-      else res.send("Confirmed Successfully");
+      
+      else { res.setHeader('Content-Type', 'text/html');
+      res.write(confirmationPageHtml);
+      res.end();
+    }
     }
   );
 };
+
 
 module.exports = { signup, login, confirmation };
