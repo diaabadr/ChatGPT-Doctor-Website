@@ -78,7 +78,7 @@ const chatPostController = async (req, res) => {
       role: "user",
       content:
         prompt +
-        ". reply to the previous words if it's related to medical question, you can reply also to the greetings",
+        ". reply to the previous words if it's related to medical question",
     });
 
     const completion = await openai.createChatCompletion({
