@@ -11,3 +11,7 @@
 - run command `npm install` 
 - run command `npm run start`
 
+### Demo Video
+
+https://github.com/diaabadr/ChatGPT-Doctor-Website/assets/77173710/ddf75bd6-e83b-4e14-8925-067a9430565f
+
